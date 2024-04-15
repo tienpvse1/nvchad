@@ -14,10 +14,22 @@ return {
       require "configs.lspconfig"
     end,
   },
-
+  {
+    "zbirenbaum/copilot.lua",
+    event = "InsertEnter",
+    opts = require "configs.copilot",
+  },
   {
     "hrsh7th/nvim-cmp",
     opts = require "configs.cmp_config",
+    dependencies = {
+      {
+        "zbirenbaum/copilot-cmp",
+        config = function()
+          require("copilot_cmp").setup()
+        end,
+      },
+    },
   },
 
   {
