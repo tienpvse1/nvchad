@@ -6,7 +6,17 @@ return {
       require "configs.conform_config"
     end,
   },
+  {
+    "NeogitOrg/neogit",
+    lazy = false,
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "sindrets/diffview.nvim",
 
+      "nvim-telescope/telescope.nvim",
+    },
+    config = true,
+  },
   {
     "neovim/nvim-lspconfig",
     config = function()
@@ -14,7 +24,11 @@ return {
       require "configs.lspconfig"
     end,
   },
-
+  {
+    "zbirenbaum/copilot.lua",
+    event = "InsertEnter",
+    opts = require "configs.copilot",
+  },
   {
     "zbirenbaum/copilot.lua",
     event = "InsertEnter",
