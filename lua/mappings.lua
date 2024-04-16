@@ -9,6 +9,9 @@ local map = vim.keymap.set
 
 map({ "n", "i" }, "<C-Z>", "<C-O>u")
 map({ "n", "i" }, "<S-A-o>", "<ESC><cmd>OrganizeImports<CR>")
+map("n", "<leader>i", function ()
+  vim.diagnostic.open_float()
+end)
 
 map("n", "<C-/>", function()
   require("Comment.api").toggle.linewise.current()

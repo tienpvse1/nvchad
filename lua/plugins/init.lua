@@ -16,10 +16,22 @@ return {
   },
 
   {
+    "zbirenbaum/copilot.lua",
+    event = "InsertEnter",
+    opts = require("configs.copilot_cmp_config").config,
+  },
+  {
     "hrsh7th/nvim-cmp",
     opts = require "configs.cmp_config",
+    dependencies = {
+      {
+        "zbirenbaum/copilot-cmp",
+        config = function()
+          require("copilot_cmp").setup()
+        end,
+      },
+    },
   },
-
   {
     "williamboman/mason.nvim",
     opts = require("configs.mason").config,
