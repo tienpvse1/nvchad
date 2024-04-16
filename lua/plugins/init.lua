@@ -6,7 +6,14 @@ return {
       require "configs.conform_config"
     end,
   },
-
+  {
+    "NeogitOrg/neogit",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "sindrets/diffview.nvim",
+    },
+    config = true,
+  },
   {
     "neovim/nvim-lspconfig",
     config = function()
@@ -23,6 +30,7 @@ return {
     "hrsh7th/nvim-cmp",
     opts = require "configs.cmp_config",
     dependencies = {
+      { "hrsh7th/cmp-nvim-lsp-signature-help" },
       {
         "zbirenbaum/copilot-cmp",
         config = function()
