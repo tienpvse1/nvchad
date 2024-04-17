@@ -11,10 +11,21 @@ map({ "n", "i" }, "<C-Z>", "<C-O>u")
 map({ "n", "i" }, "<S-A-o>", "<ESC><cmd>OrganizeImports<CR>")
 map("n", "<leader>gc", "<cmd>set hidden<cr><cmd>DiffviewClose<cr><cmd>set nohidden<cr>")
 map("n", "<leader>go", "<cmd>set hidden<cr><cmd>DiffviewOpen<cr><cmd>set nohidden<cr>")
+map("n", "<leader>i", function()
+  vim.diagnostic.open_float()
+end)
 
 map("n", "<C-/>", function()
   require("Comment.api").toggle.linewise.current()
 end)
+
+map("n", "<leader>gr", function()
+  require("telescope.builtin").lsp_references()
+end, { noremap = true, silent = true })
+
+map("n", "<leader>gd", function()
+  require("telescope.builtin").lsp_definitions()
+end, { noremap = true, silent = true })
 
 map({ "n", "t" }, "<A-i>", function()
   require("nvchad.term").toggle { pos = "float", id = "floatTerm", size = 0.8 }
