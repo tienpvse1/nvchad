@@ -17,7 +17,6 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 dofile(vim.g.base46_cache .. "cmp")
 opts.sources = {
-  { name = "nvim_lsp_signature_help" },
   { name = "nvim_lsp", group_index = 2 },
   { name = "copilot", group_index = 2 },
   { name = "luasnip", group_index = 2 },

@@ -30,10 +30,14 @@ return {
     opts = require "configs.copilot",
   },
   {
+    "zbirenbaum/copilot.lua",
+    event = "InsertEnter",
+    opts = require("configs.copilot_cmp_config").config,
+  },
+  {
     "hrsh7th/nvim-cmp",
     opts = require "configs.cmp_config",
     dependencies = {
-      { "hrsh7th/cmp-nvim-lsp-signature-help" },
       {
         "zbirenbaum/copilot-cmp",
         config = function()
@@ -42,7 +46,6 @@ return {
       },
     },
   },
-
   {
     "williamboman/mason.nvim",
     opts = require("configs.mason").config,
