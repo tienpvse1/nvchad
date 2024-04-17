@@ -15,7 +15,10 @@ return {
 
       "nvim-telescope/telescope.nvim",
     },
-    config = true,
+    config = {
+      mappings = require("configs.neogit_config").mappings,
+      use_default_keymaps = require("configs.neogit_config").use_default_keymaps,
+    },
   },
   {
     "neovim/nvim-lspconfig",
