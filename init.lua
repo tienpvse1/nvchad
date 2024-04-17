@@ -16,7 +16,7 @@ vim.wo.relativenumber = true
 
 
 local lazy_config = require "configs.lazy"
-
+vim.g.neovide_cursor_vfx_mode = "railgun"
 
 -- load plugins
 require("lazy").setup({
