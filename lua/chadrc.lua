@@ -11,6 +11,9 @@ M.ui = {
   -- 	Comment = { italic = true },
   -- 	["@comment"] = { italic = true },
   -- },
+  cmp = {
+    style = "atom",
+  },
   term = {
     float = {
       relative = "editor",
