@@ -24,4 +24,12 @@ opts.sources = {
   { name = "nvim_lua", group_index = 2 },
   { name = "path", group_index = 2 },
 }
+opts.window = {
+  completion = {
+    winblend = 40,
+  },
+  documentation = {
+    winblend = 40,
+  },
+}
 return opts

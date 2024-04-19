@@ -17,7 +17,7 @@ vim.wo.relativenumber = true
 
 local lazy_config = require "configs.lazy"
 vim.g.neovide_cursor_vfx_mode = "railgun"
-
+vim.g.neovide_hide_mouse_when_typing = true
 -- load plugins
 require("lazy").setup({
   {
@@ -41,3 +41,4 @@ require "nvchad.autocmds"
 vim.schedule(function()
   require "mappings"
 end)
+

@@ -1,5 +1,14 @@
 return {
   {
+    "nvim-telescope/telescope.nvim",
+    opts = {
+      defaults = {
+        winblend = 50,
+        pumblend = 50
+      },
+    },
+  },
+  {
     "stevearc/conform.nvim",
     event = "BufWritePre", -- uncomment for format on save
     config = function()
@@ -102,3 +111,4 @@ return {
     dependencies = { "nvim-treesitter/nvim-treesitter" },
   },
 }
+
