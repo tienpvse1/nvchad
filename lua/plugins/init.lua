@@ -4,7 +4,7 @@ return {
     opts = {
       defaults = {
         winblend = 50,
-        pumblend = 50
+        pumblend = 50,
       },
     },
   },
@@ -111,4 +111,3 @@ return {
     dependencies = { "nvim-treesitter/nvim-treesitter" },
   },
 }
-

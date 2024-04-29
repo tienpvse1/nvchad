@@ -4,7 +4,7 @@ local on_init = require("nvchad.configs.lspconfig").on_init
 local capabilities = require("nvchad.configs.lspconfig").capabilities
 
 local lspconfig = require "lspconfig"
-local servers = { "html", "gopls", "cssls", "clangd", "tailwindcss", "docker_compose_language_service", "dockerls" }
+local servers = { "html","rust_analyzer", "gopls", "cssls", "clangd", "tailwindcss", "docker_compose_language_service", "dockerls" }
 
 local function organize_import()
   local params = vim.lsp.util.make_range_params()
