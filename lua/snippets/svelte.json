@@ -1,0 +1,18 @@
+{
+	"script tag": {
+		"prefix": "tsscript",
+		"body": [
+			"<script lang=\"ts\" >",
+			"$2",
+			"</script>"
+		],
+		"description": "add the script tag with language configuration"
+	},
+	"const block": {
+		"prefix": "const",
+		"body": [
+			"{@const $1 = $2 }",
+		],
+		"description": "add const block",
+	},
+}

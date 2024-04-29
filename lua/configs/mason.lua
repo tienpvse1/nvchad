@@ -13,6 +13,7 @@ M.config = {
     "prettier",
     "tailwindcss-language-server",
     "svelte-language-server",
+    "json-lsp",
 
     -- golang
     "gopls",

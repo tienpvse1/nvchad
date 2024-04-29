@@ -18,7 +18,6 @@ map("n", "<leader>i", function()
   vim.diagnostic.open_float()
 end)
 
-
 map("n", "<C-/>", function()
   require("Comment.api").toggle.linewise.current()
 end)
@@ -40,7 +39,11 @@ map("n", "<leader><leader>m", function()
 end)
 map("n", "<leader>db", "<cmd>DBUIToggle<CR>")
 map("n", "<leader>fm", function()
-  require("conform").format()
+  if vim.bo.filetype == "rust" then
+    vim.lsp.buf.format()
+  else
+    require("conform").format()
+  end
 end)
 -- insert mode
 map("i", "<C-o>", function()

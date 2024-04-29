@@ -15,6 +15,7 @@ local options = {
 
     sh = { "shfmt" },
     go = { "gofmt" },
+    rust = { "rust_fmt" },
   },
 
   -- format_on_save = {
