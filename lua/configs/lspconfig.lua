@@ -4,7 +4,8 @@ local on_init = require("nvchad.configs.lspconfig").on_init
 local capabilities = require("nvchad.configs.lspconfig").capabilities
 
 local lspconfig = require "lspconfig"
-local servers = { "html","rust_analyzer", "gopls", "cssls", "clangd", "tailwindcss", "docker_compose_language_service", "dockerls" }
+local servers =
+  { "html", "rust_analyzer", "gopls", "cssls", "clangd", "tailwindcss", "docker_compose_language_service", "dockerls" }
 
 local function organize_import()
   local params = vim.lsp.util.make_range_params()
@@ -96,6 +97,46 @@ require("lspconfig").yamlls.setup {
         ["https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v3.1/schema.json"] = "*api*.{yml,yaml}",
         ["https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json"] = "*docker-compose*.{yml,yaml}",
         ["https://raw.githubusercontent.com/argoproj/argo-workflows/master/api/jsonschema/schema.json"] = "*flow*.{yml,yaml}",
+      },
+    },
+  },
+}
+
+require("lspconfig").jsonls.setup {
+  on_init = on_init,
+  capabilities = capabilities,
+  filetypes = { "json", "jsonc" },
+  settings = {
+    json = {
+      schemas = {
+        {
+          fileMatch = { "package.json" },
+          url = "https://json.schemastore.org/package.json",
+        },
+        {
+          fileMatch = { "tsconfig*.json" },
+          url = "https://json.schemastore.org/tsconfig.json",
+        },
+        {
+          fileMatch = {
+            ".prettierrc",
+            ".prettierrc.json",
+            "prettier.config.json",
+          },
+          url = "https://json.schemastore.org/prettierrc.json",
+        },
+        {
+          fileMatch = { ".eslintrc", ".eslintrc.json" },
+          url = "https://json.schemastore.org/eslintrc.json",
+        },
+        {
+          fileMatch = {
+            ".stylelintrc",
+            ".stylelintrc.json",
+            "stylelint.config.json",
+          },
+          url = "http://json.schemastore.org/stylelintrc.json",
+        },
       },
     },
   },
