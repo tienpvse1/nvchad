@@ -21,6 +21,15 @@ return {
     },
   },
   {
+
+    "nvim-telescope/telescope.nvim",
+    opts = {
+      defaults = {
+        winblend = 50,
+      },
+    },
+  },
+  {
     "neovim/nvim-lspconfig",
     config = function()
       require("nvchad.configs.lspconfig").defaults()
@@ -101,4 +110,9 @@ return {
     keys = { "<leader>m", "<leader>j", "<leader>s" },
     dependencies = { "nvim-treesitter/nvim-treesitter" },
   },
+{
+    "andweeb/presence.nvim",
+    event = "BufEnter",
+    opts = require("configs.presence").config,
+  }
 }
