@@ -1,6 +1,5 @@
 require "nvchad.mappings"
 local cmp = require "cmp"
-
 -- add yours here
 
 local map = vim.keymap.set
@@ -45,6 +44,10 @@ map("n", "<leader>fm", function()
     require("conform").format()
   end
 end)
+
+-- override telescope live grep with live grep args
+map("n", "<leader>fw", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>")
+
 -- insert mode
 map("i", "<C-o>", function()
   cmp.mapping.complete()
