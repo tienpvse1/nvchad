@@ -1,5 +1,31 @@
 return {
   {
+    "mfussenegger/nvim-dap",
+    configs = function()
+      local d = require "dap"
+      d.adapters["pwa-node"] = {
+        type = "server",
+        host = "localhost",
+        port = "${port}",
+        executable = {
+          command = "node",
+          -- 💀 Make sure to update this path to point to your installation
+          args = { "/home/tienpvse/Downloads/js-debug/src/dapDebugServer.js", "${port}" },
+        },
+      }
+
+      d.configurations.javascript = {
+        {
+          type = "pwa-node",
+          request = "launch",
+          name = "Launch file",
+          program = "${file}",
+          cwd = "${workspaceFolder}",
+        },
+      }
+    end,
+  },
+  {
     "nvim-telescope/telescope.nvim",
     opts = {
       defaults = {
