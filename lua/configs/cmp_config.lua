@@ -33,4 +33,13 @@ opts.window = {
     winblend = 40,
   },
 }
+
+opts.window = {
+  completion = {
+    winblend = 50,
+  },
+  documentation = {
+    winblend = 50,
+  },
+}
 return opts
