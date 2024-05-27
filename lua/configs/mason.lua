@@ -14,6 +14,7 @@ M.config = {
     "tailwindcss-language-server",
     "svelte-language-server",
     "json-lsp",
+    "js-debug-adapter",
 
     -- golang
     "gopls",

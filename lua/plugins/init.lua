@@ -1,28 +1,108 @@
 return {
   {
     "mfussenegger/nvim-dap",
-    configs = function()
-      local d = require "dap"
-      d.adapters["pwa-node"] = {
-        type = "server",
-        host = "localhost",
-        port = "${port}",
-        executable = {
-          command = "node",
-          -- 💀 Make sure to update this path to point to your installation
-          args = { "/home/tienpvse/Downloads/js-debug/src/dapDebugServer.js", "${port}" },
+    dependencies = {
+      "rcarriga/nvim-dap-ui",
+      "leoluz/nvim-dap-go",
+      "nvim-neotest/nvim-nio",
+      "mxsdev/nvim-dap-vscode-js",
+    },
+
+    config = function()
+      local dap = require "dap"
+      local dapui = require "dapui"
+      local dapgo = require "dap-go"
+
+      dapui.setup()
+      dapgo.setup {
+        dap_configurations = {
+          {
+            type = "go",
+            name = "Attach remote",
+            mode = "remote",
+            request = "attach",
+          },
         },
       }
 
-      d.configurations.javascript = {
-        {
-          type = "pwa-node",
-          request = "launch",
-          name = "Launch file",
-          program = "${file}",
-          cwd = "${workspaceFolder}",
+      dap.adapters["pwa-node"] = {
+        type = "server",
+        host = "localhost",
+        port = "${port}", --let both ports be the same for now...
+        executable = {
+          command = "node",
+          -- -- 💀 Make sure to update this path to point to your installation
+          args = {
+            vim.fn.stdpath "data" .. "/mason/packages/js-debug-adapter/js-debug/src/dapDebugServer.js",
+            "${port}",
+          },
+          -- command = "js-debug-adapter",
+          -- args = { "${port}" },
         },
       }
+
+      for _, language in ipairs { "typescript", "javascript" } do
+        dap.configurations[language] = {
+          {
+            type = "pwa-node",
+            request = "launch",
+            name = "Launch Current File (pwa-node)",
+            cwd = "${workspaceFolder}", -- vim.fn.getcwd(),
+            args = { "${file}" },
+            sourceMaps = true,
+            protocol = "inspector",
+          },
+          {
+            type = "pwa-node",
+            request = "launch",
+            name = "Launch Current File (Typescript)",
+            cwd = "${workspaceFolder}",
+            runtimeArgs = { "--loader", "ts-node/esm" },
+            program = "${file}",
+            runtimeExecutable = "node",
+            -- args = { '${file}' },
+            sourceMaps = true,
+            protocol = "inspector",
+            outFiles = { "${workspaceFolder}/**/**/*", "!**/node_modules/**" },
+            skipFiles = { "<node_internals>/**", "node_modules/**" },
+            resolveSourceMapLocations = {
+              "${workspaceFolder}/**",
+              "!**/node_modules/**",
+            },
+          },
+        }
+      end
+
+      dap.listeners.before.attach.dapui_config = function()
+        dapui.open()
+      end
+
+      dap.listeners.before.launch.dapui_config = function()
+        dapui.open()
+      end
+
+      dap.listeners.before.event_terminated.dapui_config = function()
+        dapui.close()
+      end
+
+      dap.listeners.before.event_exited.dapui_config = function()
+        dapui.close()
+      end
+
+      vim.keymap.set("n", "<leader>dt", function()
+        dap.toggle_breakpoint()
+      end)
+
+      vim.keymap.set("n", "<leader>dc", function()
+        dap.continue()
+      end)
+
+      vim.keymap.set("n", "<leader>do", function()
+        dap.step_over()
+      end)
+      vim.keymap.set("n", "<leader>di", function()
+        dap.step_into()
+      end)
     end,
   },
   {
@@ -55,15 +135,6 @@ return {
     config = {
       mappings = require("configs.neogit_config").mappings,
       use_default_keymaps = require("configs.neogit_config").use_default_keymaps,
-    },
-  },
-  {
-
-    "nvim-telescope/telescope.nvim",
-    opts = {
-      defaults = {
-        winblend = 50,
-      },
     },
   },
   {
@@ -147,9 +218,9 @@ return {
     keys = { "<leader>m", "<leader>j", "<leader>s" },
     dependencies = { "nvim-treesitter/nvim-treesitter" },
   },
-{
+  {
     "andweeb/presence.nvim",
     event = "BufEnter",
     opts = require("configs.presence").config,
-  }
+  },
 }

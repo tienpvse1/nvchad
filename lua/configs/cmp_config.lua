@@ -25,21 +25,5 @@ opts.sources = {
   { name = "path", group_index = 2 },
   { name = "nvim_lsp_signature_help", group_index = 1 },
 }
-opts.window = {
-  completion = {
-    winblend = 40,
-  },
-  documentation = {
-    winblend = 40,
-  },
-}
 
-opts.window = {
-  completion = {
-    winblend = 50,
-  },
-  documentation = {
-    winblend = 50,
-  },
-}
 return opts
