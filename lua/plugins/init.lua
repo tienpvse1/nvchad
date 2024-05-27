@@ -70,6 +70,24 @@ return {
               "!**/node_modules/**",
             },
           },
+          {
+            type = "pwa-node",
+            request = "launch",
+            name = "Launch NestJS app",
+            cwd = "${workspaceFolder}",
+            runtimeArgs = { "run", "start:dev" },
+            program = "${file}",
+            runtimeExecutable = "npm",
+            -- args = { '${file}' },
+            sourceMaps = true,
+            protocol = "inspector",
+            outFiles = { "${workspaceFolder}/**/**/*", "!**/node_modules/**" },
+            skipFiles = { "<node_internals>/**", "node_modules/**" },
+            resolveSourceMapLocations = {
+              "${workspaceFolder}/**",
+              "!**/node_modules/**",
+            },
+          },
         }
       end
 
