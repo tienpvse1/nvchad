@@ -7,120 +7,8 @@ return {
       "nvim-neotest/nvim-nio",
       "mxsdev/nvim-dap-vscode-js",
     },
-
     config = function()
-      local dap = require "dap"
-      local dapui = require "dapui"
-      local dapgo = require "dap-go"
-
-      dapui.setup()
-      dapgo.setup {
-        dap_configurations = {
-          {
-            type = "go",
-            name = "Attach remote",
-            mode = "remote",
-            request = "attach",
-          },
-        },
-      }
-
-      dap.adapters["pwa-node"] = {
-        type = "server",
-        host = "localhost",
-        port = "${port}", --let both ports be the same for now...
-        executable = {
-          command = "node",
-          -- -- 💀 Make sure to update this path to point to your installation
-          args = {
-            vim.fn.stdpath "data" .. "/mason/packages/js-debug-adapter/js-debug/src/dapDebugServer.js",
-            "${port}",
-          },
-          -- command = "js-debug-adapter",
-          -- args = { "${port}" },
-        },
-      }
-
-      for _, language in ipairs { "typescript", "javascript" } do
-        dap.configurations[language] = {
-          {
-            type = "pwa-node",
-            request = "launch",
-            name = "Launch Current File (pwa-node)",
-            cwd = "${workspaceFolder}", -- vim.fn.getcwd(),
-            args = { "${file}" },
-            sourceMaps = true,
-            protocol = "inspector",
-          },
-          {
-            type = "pwa-node",
-            request = "launch",
-            name = "Launch Current File (Typescript)",
-            cwd = "${workspaceFolder}",
-            runtimeArgs = { "--loader", "ts-node/esm" },
-            program = "${file}",
-            runtimeExecutable = "node",
-            -- args = { '${file}' },
-            sourceMaps = true,
-            protocol = "inspector",
-            outFiles = { "${workspaceFolder}/**/**/*", "!**/node_modules/**" },
-            skipFiles = { "<node_internals>/**", "node_modules/**" },
-            resolveSourceMapLocations = {
-              "${workspaceFolder}/**",
-              "!**/node_modules/**",
-            },
-          },
-          {
-            type = "pwa-node",
-            request = "launch",
-            name = "Launch NestJS app",
-            cwd = "${workspaceFolder}",
-            runtimeArgs = { "run", "start:dev" },
-            program = "${file}",
-            runtimeExecutable = "npm",
-            -- args = { '${file}' },
-            sourceMaps = true,
-            protocol = "inspector",
-            outFiles = { "${workspaceFolder}/**/**/*", "!**/node_modules/**" },
-            skipFiles = { "<node_internals>/**", "node_modules/**" },
-            resolveSourceMapLocations = {
-              "${workspaceFolder}/**",
-              "!**/node_modules/**",
-            },
-          },
-        }
-      end
-
-      dap.listeners.before.attach.dapui_config = function()
-        dapui.open()
-      end
-
-      dap.listeners.before.launch.dapui_config = function()
-        dapui.open()
-      end
-
-      dap.listeners.before.event_terminated.dapui_config = function()
-        dapui.close()
-      end
-
-      dap.listeners.before.event_exited.dapui_config = function()
-        dapui.close()
-      end
-
-      vim.keymap.set("n", "<leader>dt", function()
-        dap.toggle_breakpoint()
-      end)
-
-      vim.keymap.set("n", "<leader>dc", function()
-        dap.continue()
-      end)
-
-      vim.keymap.set("n", "<leader>do", function()
-        dap.step_over()
-      end)
-      vim.keymap.set("n", "<leader>di", function()
-        dap.step_into()
-      end)
+      require "configs.dap"
     end,
   },
   {
@@ -128,15 +16,13 @@ return {
     dependencies = {
       {
         "nvim-telescope/telescope-live-grep-args.nvim",
-        -- This will not install any breaking changes.
-        -- For major updates, this must be adjusted manually.
         version = "^1.0.0",
       },
     },
   },
   {
     "stevearc/conform.nvim",
-    event = "BufWritePre", -- uncomment for format on save
+    event = "BufWritePre",
     config = function()
       require "configs.conform_config"
     end,
