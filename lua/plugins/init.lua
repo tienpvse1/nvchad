@@ -1,15 +1,9 @@
+local dapCfg = require "configs.dap"
 return {
   {
     "mfussenegger/nvim-dap",
-    dependencies = {
-      "rcarriga/nvim-dap-ui",
-      "leoluz/nvim-dap-go",
-      "nvim-neotest/nvim-nio",
-      "mxsdev/nvim-dap-vscode-js",
-    },
-    config = function()
-      require "configs.dap"
-    end,
+    dependencies = dapCfg.dependencies,
+    config = dapCfg.config,
   },
   {
     "nvim-telescope/telescope.nvim",
