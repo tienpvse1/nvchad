@@ -5,7 +5,6 @@ local cmp = require "cmp"
 local map = vim.keymap.set
 
 -- normal mode
-
 map({ "n", "i" }, "<C-Z>", "<C-O>u")
 map({ "n", "i" }, "<S-A-o>", "<ESC><cmd>OrganizeImports<CR>")
 map("n", "<leader>i", function()
