@@ -182,9 +182,14 @@ return {
     keys = { "<leader>m", "<leader>j", "<leader>s" },
     dependencies = { "nvim-treesitter/nvim-treesitter" },
   },
+
   {
-    "andweeb/presence.nvim",
-    event = "BufEnter",
-    opts = require("configs.presence").config,
+    "windwp/nvim-ts-autotag",
+    event = "BufReadPre",
+    opts = {
+      enable_close = true, -- Auto close tags
+      enable_rename = true, -- Auto rename pairs of tags
+      enable_close_on_slash = false, -- Auto close on trailing </
+    },
   },
 }
