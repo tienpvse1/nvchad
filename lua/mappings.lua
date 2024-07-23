@@ -52,7 +52,7 @@ map("i", "<C-o>", function()
   cmp.mapping.complete()
 end)
 
-map("i", "kj", "<ESC>")
+map("i", "jj", "<ESC>")
 -- visual mode
 map("v", "<C-/>", "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>")
 
