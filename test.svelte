@@ -1,2 +1,3 @@
 
 tssc
+test auto session
