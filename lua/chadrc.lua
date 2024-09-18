@@ -14,16 +14,6 @@ M.ui = {
   cmp = {
     style = "atom",
   },
-  term = {
-    float = {
-      relative = "editor",
-      row = 0.05,
-      height = 0.8,
-      col = 0.1,
-      width = 0.8,
-      border = "single",
-    },
-  },
 }
 
 return M

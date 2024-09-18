@@ -29,7 +29,18 @@ map("n", "<leader>gd", function()
 end, { noremap = true, silent = true })
 
 map({ "n", "t" }, "<A-i>", function()
-  require("nvchad.term").toggle { pos = "float", id = "floatTerm", size = 0.8 }
+  require("nvchad.term").toggle {
+    pos = "float",
+    id = "floatTerm",
+    size = 0.8,
+    float_opts = {
+      relative = "editor",
+      row = 0.05,
+      col = 0.05,
+      width = 0.9,
+      height = 0.8,
+    },
+  }
 end, { desc = "Terminal Toggle Floating term" })
 
 map("n", "<leader><leader>m", function()
