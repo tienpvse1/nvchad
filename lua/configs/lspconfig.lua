@@ -4,8 +4,16 @@ local on_init = require("nvchad.configs.lspconfig").on_init
 local capabilities = require("nvchad.configs.lspconfig").capabilities
 
 local lspconfig = require "lspconfig"
-local servers =
-  { "html", "rust_analyzer", "gopls", "cssls", "clangd", "tailwindcss", "docker_compose_language_service", "dockerls" }
+local servers = {
+  "html",
+  "rust_analyzer",
+  "cssls",
+  "clangd",
+  "tailwindcss",
+  "docker_compose_language_service",
+  "dockerls",
+  "jdtls",
+}
 
 local function organize_import()
   local params = vim.lsp.util.make_range_params()
@@ -38,6 +46,22 @@ for _, lsp in ipairs(servers) do
   }
 end
 
+
+  lspconfig.gopls.setup {
+    on_attach = on_attach,
+    on_init = on_init,
+    capabilities = capabilities,
+    filetypes = { "go", "gomod", "gowork", "gotmpl", "html" },
+
+    commands = {
+      OrganizeImports = {
+        organize_import,
+        description = "Organize Imports",
+      },
+    },
+  }
+
+
 local function organize_imports()
   local params = {
     command = "_typescript.organizeImports",
@@ -47,7 +71,7 @@ local function organize_imports()
   vim.lsp.buf.execute_command(params)
 end
 
-lspconfig.tsserver.setup {
+lspconfig.ts_ls.setup {
   on_attach = on_attach,
   capabilities = capabilities,
   commands = {
@@ -58,6 +82,11 @@ lspconfig.tsserver.setup {
   },
 }
 
+require("lspconfig").jsonls.setup {
+  on_init = on_init,
+  capabilities = capabilities,
+  filetypes = { "html", "gotmpl", "templ" },
+}
 lspconfig.svelte.setup {
   on_attach = function(client)
     vim.api.nvim_create_autocmd("BufWritePost", {

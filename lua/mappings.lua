@@ -4,7 +4,23 @@ local cmp = require "cmp"
 
 local map = vim.keymap.set
 
+-- nvim spectre
+map('n', '<leader>S', '<cmd>lua require("spectre").toggle()<CR>', {
+    desc = "Toggle Spectre"
+})
+map('n', '<leader>sw', '<cmd>lua require("spectre").open_visual({select_word=true})<CR>', {
+    desc = "Search current word"
+})
+map('v', '<leader>sw', '<esc><cmd>lua require("spectre").open_visual()<CR>', {
+    desc = "Search current word"
+})
+map('n', '<leader>sp', '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>', {
+    desc = "Search on current file"
+})
+
 -- normal mode
+map("n","<leader>twr", "<cmd>lua require('neotest').run.run({ vitestCommand = 'vitest --watch' })<cr>")
+map("n","<leader>twf", "<cmd>lua require('neotest').run.run({ vim.fn.expand('%'), vitestCommand = 'vitest --watch' })<cr>")
 map({ "n", "i" }, "<C-Z>", "<C-O>u")
 map({ "n", "i" }, "<S-A-o>", "<ESC><cmd>OrganizeImports<CR>")
 map("n", "<leader>i", function()
